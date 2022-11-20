@@ -47,6 +47,20 @@
     --col-a: #2c9b65;
 }
 
+@media only screen and (min-width:1280px){
+
+  .menu-text { display: block; }
+  #menu-icon { display: none; }
+
+}
+
+@media only screen and (max-width:1279px){
+
+  .menu-text { display: none; }
+  #menu-icon { display: block; }
+
+}
+
 *{
     box-sizing: border-box;
     padding: 0;
@@ -124,7 +138,7 @@ ul {
 }
 
 .nav-item {
-  width: 20%;
+  width: 14.28%;
 }
 
 .form-group {
