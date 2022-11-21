@@ -33,6 +33,7 @@
     --button-col-not-active: #111;
     --button-col-active: #080b16;
     --col-a: #90e7bd;
+    --label-color: white;
 }
 .dark-theme{
     --background-col: #d2dce7;
@@ -45,6 +46,7 @@
     --button-col-not-active: rgb(202, 202, 202);
     --button-col-active: rgb(202, 202, 202);
     --col-a: #2c9b65;
+    --label-color: black;
 }
 
 @media only screen and (min-width:1280px){
@@ -61,6 +63,13 @@
 
   form label {
     font-size: 24px;
+  }
+
+  input[type=radio] {
+    border: 0px;
+    height: 2em;
+    width: 2em;
+    margin-right: 14px;
   }
 
   #Title {
@@ -83,7 +92,8 @@
   #submitUpload {
     height: 90px;
     width: 200px;
-    font-size: 40px
+    font-size: 40px;
+    margin-top: 20px;
   }
 }
 
@@ -120,6 +130,10 @@ body{
     padding: 2%;
 }
 
+label {
+  color: var(--label-color);
+}
+
 footer {
   bottom: 0;
   width: 100%;
@@ -131,6 +145,12 @@ footer {
 h1,h2,h3,h4,p{
     color: var(--title-color);
     font-weight: var(--font-semi-bold);
+}
+
+h2{
+  text-align: right;
+  margin-bottom: -30px;
+  margin-top: -15px;
 }
 
 header{
