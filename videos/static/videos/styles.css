@@ -59,6 +59,36 @@
   .menu-text { display: none; }
   #menu-icon { display: block; }
 
+  form label {
+    font-size: 24px;
+  }
+
+  #Title {
+    height: 80px;
+    margin-bottom: 50px;
+    font-size: 24px;
+  }
+
+  #Search {
+    height: 80px;
+    font-size: 24px;
+  }
+
+  #Description {
+    height: 250px;
+    margin-bottom: 50px;
+    font-size: 24px;
+  }
+
+  #submitUpload {
+    height: 90px;
+    width: 200px;
+    font-size: 40px
+  }
+}
+
+#menu-icon {
+  font-size: 40px;
 }
 
 *{

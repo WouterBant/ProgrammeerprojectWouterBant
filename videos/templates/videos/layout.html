@@ -31,22 +31,22 @@
                 <a class="nav-link" href="{% url 'index' %}"><span class="menu-text">Recommendations</span><i id="menu-icon" class="material-icons ">home</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}"><span class="menu-text">Leaderboard</span><i id="menu-icon" class="material-icons ">grade</i></a>
+                <a class="nav-link" href="{% url 'leaderboard' %}"><span class="menu-text">Leaderboard</span><i id="menu-icon" class="material-icons ">grade</i></a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}"><span class="menu-text">Subscriptions</span><i id="menu-icon" class="material-icons "><span class="material-symbols-outlined">
+                <a class="nav-link" href="{% url 'subscriptions' %}"><span class="menu-text">Subscriptions</span><i id="menu-icon" class="material-icons "><span class="material-symbols-outlined">
                     density_small
                     </span></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}"><span class="menu-text">Upload</span><i id="menu-icon" class="material-icons ">add_circle</i></a>
+                <a class="nav-link" href="{% url 'upload' %}"><span class="menu-text">Upload</span><i id="menu-icon" class="material-icons ">add_circle</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}"><span class="menu-text">Profile</span><i id="menu-icon" class="material-icons ">account_circle</i></a>
+                <a class="nav-link" href="{% url 'profile' %}"><span class="menu-text">Profile</span><i id="menu-icon" class="material-icons ">account_circle</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}"><span class="menu-text">Saved</span><i id="menu-icon" class="material-icons ">saved_search</i></a>
+                <a class="nav-link" href="{% url 'saved' %}"><span class="menu-text">Saved</span><i id="menu-icon" class="material-icons ">saved_search</i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}"><span class="menu-text">Logout</span><i id="menu-icon" class="material-icons ">logout</i></a>
@@ -62,7 +62,7 @@
         </ul>
         <br>
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <hr>

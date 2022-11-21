@@ -61,3 +61,18 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "videos/register.html")
+
+def leaderboard(request):
+    return render(request, "videos/leaderboard.html")
+
+def subscriptions(request):
+    return render(request, "videos/subscriptions.html")
+
+def upload(request):
+    return render(request, "videos/upload.html")
+
+def profile(request):
+    return render(request, "videos/profile.html")
+
+def saved(request):
+    return render(request, "videos/saved.html")
