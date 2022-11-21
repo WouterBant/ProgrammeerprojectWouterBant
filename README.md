@@ -1,8 +1,10 @@
-# Application Name
+# GymVid
 
-TODO: Describe your application here.
+Video platform, with the option to earn money by posting videos only for paid subscibers
 
 
 ## Getting Started
 
-TODO: Describe steps to install requirements and get the application running.
+Django: 
+pip install django
+python manage.py runserver
