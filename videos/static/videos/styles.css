@@ -167,6 +167,7 @@ title{
     font-size: x-large;
 }
 
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -246,6 +247,12 @@ a{
     color: var(--col-a);
 }
 
+figcaption{
+  margin-top: -20px;
+  margin-left: 40px;
+  color: var(--label-color);
+}
+
 p{
   padding-left: 15%;
   padding-right: 15%;
@@ -269,10 +276,16 @@ dt a {
   color: var(--title-color);
 }
 
-img{
-    max-width: 100%;
-    height: auto;
+#thumbnail{
+    width: 400px;
+    height: 250px;
+    margin: 30px;
 }
+
+#thumbnail:hover{
+  opacity: 70%;
+}
+
 
 nav{
     font-size: var(--smaller-font-size);

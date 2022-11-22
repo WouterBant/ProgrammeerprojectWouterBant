@@ -3,5 +3,12 @@
 {% block body %}
     <h2>Recommendations</h2>
 
-    TODO
+    <body>
+        {% for d in dog %}
+        <figure>
+            <img src="{{ d.thumbnail.url }}" class="img-thumbnail" id="thumbnail">
+            <figcaption>{{ d.title }}</figcaption>
+        </figure>
+        {% endfor %}
+    </body>
 {% endblock %}
