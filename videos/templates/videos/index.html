@@ -2,13 +2,23 @@
 
 {% block body %}
     <h2>Recommendations</h2>
-
+    <br>
     <body>
-        {% for d in dog %}
-        <figure>
-            <img src="{{ d.thumbnail.url }}" class="img-thumbnail" id="thumbnail">
-            <figcaption>{{ d.title }}</figcaption>
-        </figure>
-        {% endfor %}
+        <div>
+            <div class="row">
+                {% for d in data %}
+                    <div class="column">
+                        <div class="content">
+                            <a href="{% url 'video' title=d.title %}">
+                                <figure>
+                                    <img src="{{ d.thumbnail.url }}" class="img-thumbnail" id="thumbnail">
+                                    <figcaption>{{ d.title }} -- {{ d.creator }}</figcaption>
+                                </figure>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 {% endblock %}

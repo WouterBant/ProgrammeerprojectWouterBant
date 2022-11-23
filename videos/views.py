@@ -4,12 +4,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Puppy, Videos_Posted
+from .models import User, Videos_Posted, Category, Comments
 
 
 def index(request):
     return render(request, "videos/index.html", {
-        "dog": Videos_Posted.objects.all()
+        "data": Videos_Posted.objects.all()
     })
 
 
@@ -71,10 +71,57 @@ def subscriptions(request):
     return render(request, "videos/subscriptions.html")
 
 def upload(request):
-    return render(request, "videos/upload.html")
+    return render(request, "videos/upload.html", {
+        "cats": Category.objects.all()
+    })
 
 def profile(request):
     return render(request, "videos/profile.html")
 
 def saved(request):
     return render(request, "videos/saved.html")
+
+def video(request, title):
+    if request.method == "GET":
+        try:
+            data = Videos_Posted.objects.get(title=title)
+        except:
+            data = None
+        allComments = Comments.objects.filter(comment_video=data)
+        # isOwner = request.user.username == data.owner.username
+        return render(request, "videos/video.html", {
+            'data': data,
+            'allComments': allComments,
+            # 'isOwner': isOwner
+        })
+    
+
+def upload_video(request):
+    creator = request.user
+    title = request.POST['title']
+    description = request.POST['description']
+    category = Category.objects.get(category=request.POST['category'])
+    new_video = Videos_Posted(
+        title = title,
+        description = description,
+        video_file = request.FILES['video'],
+        thumbnail = request.FILES['thumbnail'],
+        category_video = category,
+        creator = creator
+    )
+    new_video.save()
+    return HttpResponseRedirect(reverse(index))
+
+def addComment(request, id):
+    userNow  = request.user
+    data = Videos_Posted.objects.get(pk=id)
+    title = data.title
+    message = request.POST['newComment']
+
+    newComment = Comments(
+        author=userNow,
+        comment_video=data,
+        message=message
+    )
+    newComment.save()
+    return HttpResponseRedirect(reverse("video", args=(title, )))

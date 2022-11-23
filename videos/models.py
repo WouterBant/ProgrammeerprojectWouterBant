@@ -5,15 +5,6 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-class Puppy(models.Model):
-    photo = models.ImageField()
-
-    class Meta:
-        verbose_name_plural = "Puppies"
-
-    def __str__(self):
-        return self.photo.name
-
 class Category(models.Model):
     category = models.CharField(max_length=50)
 
@@ -36,10 +27,10 @@ class Videos_Posted(models.Model):
     def __str__(self):
         return self.title
 
-# class Comments(models.Model):
-#     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author")
-#     comment_video = models.ForeignKey(Videos_Posted, on_delete=models.CASCADE, related_name="comment_video")
-#     message = models.CharField(max_length=500)
+class Comments(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author")
+    comment_video = models.ForeignKey(Videos_Posted, on_delete=models.CASCADE, related_name="comment_video")
+    message = models.CharField(max_length=500)
 
-#     def __str__(self):
-#         return f"{self.author} comment on {self.listing}"
+    def __str__(self):
+        return f"{self.author} comment on {self.comment_video}"

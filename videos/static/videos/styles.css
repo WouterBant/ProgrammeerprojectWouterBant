@@ -54,6 +54,10 @@
   .menu-text { display: block; }
   #menu-icon { display: none; }
 
+  #thumbnail{
+    height: 250px;
+}
+
 }
 
 @media only screen and (max-width:1279px){
@@ -63,6 +67,14 @@
 
   form label {
     font-size: 24px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  #thumbnail{
+    height: 250px;
   }
 
   input[type=radio] {
@@ -95,6 +107,73 @@
     font-size: 40px;
     margin-top: 20px;
   }
+}
+
+.row {
+  margin: 8px -16px;
+}
+
+/* .main {
+  max-width: 1000px;
+  margin: auto;
+} */
+
+/* Add padding BETWEEN each column */
+.row,
+.row > .column {
+  padding: 8px;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* Clear floats after rows */ 
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Content */
+.content {
+  background-color: white;
+  /* padding: 10px; */
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .column {
+    width: 50%;
+  }
+  #thumbnail{
+    height: 250px;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .column {
+    width: 100%;
+  }
+  #thumbnail{
+    height: 350px;
+  }
+}
+
+#addcomment{
+  resize: none;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  float: right;
+}
+
+figcaption{
+  color: black;
+  font-size: medium;
 }
 
 #menu-icon {
@@ -202,10 +281,10 @@ ol li {
   padding-right: 5%;
 }
 
-li {
+/* li {
   float: left;
   border-right:1px solid #bbb;
-}
+} */
 
 li:last-child {
   border-right: none;
@@ -247,16 +326,14 @@ a{
     color: var(--col-a);
 }
 
-figcaption{
-  margin-top: -20px;
-  margin-left: 40px;
-  color: var(--label-color);
+video{
+  width: 60%;
 }
 
-p{
+/* p{
   padding-left: 15%;
   padding-right: 15%;
-}
+} */
 
 a:hover{
     text-align: center;
@@ -274,12 +351,6 @@ dt {
 
 dt a {
   color: var(--title-color);
-}
-
-#thumbnail{
-    width: 400px;
-    height: 250px;
-    margin: 30px;
 }
 
 #thumbnail:hover{

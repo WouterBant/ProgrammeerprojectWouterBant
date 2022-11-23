@@ -13,7 +13,10 @@ urlpatterns = [
     path("subscriptions", views.subscriptions, name="subscriptions"),
     path("upload", views.upload, name="upload"),
     path("profile", views.profile, name="profile"),
-    path("saved", views.saved, name="saved")
+    path("video/<str:title>", views.video, name="video"),
+    path("saved", views.saved, name="saved"),
+    path("upload_video", views.upload_video, name="upload_video"),
+    path("addComment/<int:id>", views.addComment, name="addComment"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
