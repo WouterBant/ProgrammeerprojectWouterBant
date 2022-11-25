@@ -1,8 +1,8 @@
 # Application Name
 
-TODO: Describe your application here.
-
+YouTube for sports videos.
 
 ## Getting Started
 
-TODO: Describe steps to install requirements and get the application running.
+pip install Django
+pip install snowflake

@@ -31,4 +31,24 @@
     <div>
         <h4>Description: <p>{{ data.description }}</p></h4>
     </div>
+    <div>
+        <h5>Likes: {{ data.likes }}</h5>
+        <form action="{% url 'addLike' id=data.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn" id="like-button"><span class="material-symbols-outlined">favorite</span></button>
+        </form>
+    </div>
+    <div>
+        <h5>Video is not saved</h5>
+        <form action="{% url 'save_video' id=data.id %}" method="POST">
+            {% csrf_token %}
+            <button style="color: white;" class="btn" id="save-button"><span class="material-symbols-outlined">add</span></button>
+        </form>
+    </div>
+    <div>
+        <form action="{% url 'go_to_profile' id=data.id %}" method="POST">
+            {% csrf_token %}
+            <button style="color: white;" class="btn btn-primary" id="save-button">Go to profile of {{ data.creator }}</button>
+        </form>
+    </div>
 {% endblock %}

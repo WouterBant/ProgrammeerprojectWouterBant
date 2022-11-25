@@ -2,6 +2,11 @@
 
 {% block body %}
     <h2>Leaderboard</h2>
-
-    TODO
+    <ol>
+        {% for video in data %}
+            <a href="{% url 'video' title=video.title %}">
+                <li>Video: {{ video.title }}, by {{ video.creator }}, number of likes: {{ video.likes }}</li>
+            </a>
+        {% endfor %}
+    </ol>
 {% endblock %}

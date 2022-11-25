@@ -4,12 +4,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Videos_Posted, Category, Comments
+from .models import User, Videos_Posted, Category, Comments, Profile
 
 
 def index(request):
+    data = Videos_Posted.objects.all()
     return render(request, "videos/index.html", {
-        "data": Videos_Posted.objects.all()
+        "data": data,
+        "cats": Category.objects.all()
     })
 
 
@@ -65,7 +67,10 @@ def register(request):
         return render(request, "videos/register.html")
 
 def leaderboard(request):
-    return render(request, "videos/leaderboard.html")
+    data = Videos_Posted.objects.order_by('likes').reverse()
+    return render(request, "videos/leaderboard.html", {
+        "data": data
+    })
 
 def subscriptions(request):
     return render(request, "videos/subscriptions.html")
@@ -76,7 +81,13 @@ def upload(request):
     })
 
 def profile(request):
-    return render(request, "videos/profile.html")
+    user = request.user
+    data = Profile.objects.get(person=user)
+    vids = Videos_Posted.objects.filter(creator=user)
+    return render(request, "videos/profile.html", {
+        "data": data,
+        "vids": vids
+    })
 
 def saved(request):
     return render(request, "videos/saved.html")
@@ -125,3 +136,55 @@ def addComment(request, id):
     )
     newComment.save()
     return HttpResponseRedirect(reverse("video", args=(title, )))
+
+def addLike(request, id):
+    userNow  = request.user
+    data = Videos_Posted.objects.get(pk=id)
+    data.likes += 1
+    title = data.title
+    data.save(update_fields=["likes"]) 
+
+    return HttpResponseRedirect(reverse("video", args=(title,)))
+
+def delete_video(request, id):
+    Videos_Posted.objects.get(pk=id).delete()
+    return HttpResponseRedirect(reverse(index))
+
+def update_information(request, id):
+    data = Profile.objects.get(pk=id)
+    data.profile_name = request.POST['new_username']
+    data.profile_description = request.POST['new_description']
+    data.save()
+    return HttpResponseRedirect(reverse(index))
+
+def search(request):
+    search_term = request.POST['term']
+    data = Videos_Posted.objects.all()
+    res = []
+    for obj in data:
+        if search_term in obj.title:
+            res.append(obj)
+    return render(request, "videos/search.html", {
+        "data": res
+    })
+
+def display_category(request):
+    cat = request.POST['category']
+    cats = Category.objects.get(category=cat)
+    list_of_videos = Videos_Posted.objects.filter(category_video=cats)
+    return render(request, "videos/index.html", {
+        "data": list_of_videos,
+        "cats": Category.objects.all()
+    })
+
+def save_video(request, id):
+    pass
+
+def go_to_profile(request, id):
+    record = Videos_Posted.objects.filter(id=id)
+    print(record)
+    # print("\n\n\n\n\n\n\n")
+    # Profile.objects.get(person=user)
+    return render(request, "videos/go_to_profile.html", {
+        "data": record
+    })

@@ -34,3 +34,11 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"{self.author} comment on {self.comment_video}"
+
+class Profile(models.Model):
+    person = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person")
+    profile_name = models.CharField(max_length=20, default="No profile name")
+    profile_description = models.CharField(max_length=500, default="No description")
+
+    def __str__(self):
+        return f"{self.profile_name} has description {self.profile_description}"

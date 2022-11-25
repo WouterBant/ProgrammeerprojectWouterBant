@@ -311,6 +311,10 @@ button {
   border: none;
 }
 
+#like-button{
+  color:red;
+}
+
 button:hover:not(.active) {
   background-color: var(--button-col-not-active);
 }

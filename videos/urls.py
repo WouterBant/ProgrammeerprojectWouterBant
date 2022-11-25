@@ -17,6 +17,13 @@ urlpatterns = [
     path("saved", views.saved, name="saved"),
     path("upload_video", views.upload_video, name="upload_video"),
     path("addComment/<int:id>", views.addComment, name="addComment"),
+    path("addLike/<int:id>", views.addLike, name="addLike"),
+    path("delete_video/<int:id>", views.delete_video, name="delete_video"),
+    path("update_information/<int:id>", views.update_information, name="update_information"),
+    path("search", views.search, name="search"),
+    path("display_category", views.display_category, name="display_category"),
+    path("save_video/<int:id>", views.save_video, name="save_video"),
+    path("go_to_profile/<int:id>", views.go_to_profile, name="go_to_profile"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
