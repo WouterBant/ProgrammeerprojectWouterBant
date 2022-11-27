@@ -22,7 +22,6 @@ urlpatterns = [
     path("update_information/<int:id>", views.update_information, name="update_information"),
     path("search", views.search, name="search"),
     path("display_category", views.display_category, name="display_category"),
-    # path("save_video/<int:id>", views.save_video, name="save_video"),
     path("go_to_profile/<int:id>", views.go_to_profile, name="go_to_profile"),
     path("removeSaved/<str:title>", views.removeSaved, name="removeSaved"),
     path("addSaved/<str:title>", views.addSaved, name="addSaved"),

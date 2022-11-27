@@ -5,7 +5,7 @@
     <body>
         <form action="{% url 'display_category' %}" method="POST">
             {% csrf_token %}
-            <select class="form-select" aria-label="Default select example" name="category">
+            <select class="form-select" aria-label="Default select example" name="category" required>
                 <option value="" disabled selected hidden>Select a category</option>
                 {% for c in cats %}
                     <option>{{ c }}</option>

@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -66,19 +66,23 @@ def register(request):
     else:
         return render(request, "videos/register.html")
 
+
 def leaderboard(request):
     data = Videos_Posted.objects.order_by('likes').reverse()
     return render(request, "videos/leaderboard.html", {
         "data": data
     })
 
+
 def subscriptions(request):
     return render(request, "videos/subscriptions.html")
+
 
 def upload(request):
     return render(request, "videos/upload.html", {
         "cats": Category.objects.all()
     })
+
 
 def profile(request):
     user = request.user
@@ -89,15 +93,16 @@ def profile(request):
         "vids": vids
     })
 
+
 def video(request, title):
     if request.method == "GET":
         try:
             data = Videos_Posted.objects.get(title=title)
         except:
             data = None
-        
-        saved=request.user in data.video_saved.all()
-        liked=request.user in data.video_liked.all()
+
+        saved = request.user in data.video_saved.all()
+        liked = request.user in data.video_liked.all()
         allComments = Comments.objects.filter(comment_video=data)
         # isOwner = request.user.username == data.owner.username
         return render(request, "videos/video.html", {
@@ -106,7 +111,7 @@ def video(request, title):
             'saved': saved,
             'liked': liked
         })
-    
+
 
 def upload_video(request):
     creator = request.user
@@ -114,18 +119,20 @@ def upload_video(request):
     description = request.POST['description']
     category = Category.objects.get(category=request.POST['category'])
     new_video = Videos_Posted(
-        title = title,
-        description = description,
-        video_file = request.FILES['video'],
-        thumbnail = request.FILES['thumbnail'],
-        category_video = category,
-        creator = creator
+        title=title,
+        description=description,
+        video_file=request.FILES['video'],
+        thumbnail=request.FILES['thumbnail'],
+        category_video=category,
+        creator=creator
     )
     new_video.save()
+
     return HttpResponseRedirect(reverse(index))
 
+
 def addComment(request, id):
-    userNow  = request.user
+    userNow = request.user
     data = Videos_Posted.objects.get(pk=id)
     title = data.title
     message = request.POST['newComment']
@@ -138,9 +145,11 @@ def addComment(request, id):
     newComment.save()
     return HttpResponseRedirect(reverse("video", args=(title, )))
 
+
 def delete_video(request, id):
     Videos_Posted.objects.get(pk=id).delete()
     return HttpResponseRedirect(reverse(index))
+
 
 def update_information(request, id):
     data = Profile.objects.get(pk=id)
@@ -148,6 +157,7 @@ def update_information(request, id):
     data.profile_description = request.POST['new_description']
     data.save()
     return HttpResponseRedirect(reverse(index))
+
 
 def search(request):
     search_term = request.POST['term']
@@ -160,6 +170,7 @@ def search(request):
         "data": res
     })
 
+
 def display_category(request):
     cat = request.POST['category']
     cats = Category.objects.get(category=cat)
@@ -168,6 +179,7 @@ def display_category(request):
         "data": list_of_videos,
         "cats": Category.objects.all()
     })
+
 
 def go_to_profile(request, id):
     record = Videos_Posted.objects.get(id=id)
@@ -181,17 +193,20 @@ def go_to_profile(request, id):
         "videos": vids
     })
 
+
 def delete_from_saved(request, title):
     data = Videos_Posted.objects.get(title=title)
     userNow = request.user
     data.video_saved.remove(userNow)
     return HttpResponseRedirect(reverse("saved"))
 
+
 def removeSaved(request, title):
     data = Videos_Posted.objects.get(title=title)
     userNow = request.user
     data.video_saved.remove(userNow)
     return HttpResponseRedirect(reverse("video", args=(title,)))
+
 
 def addSaved(request, title):
     data = Videos_Posted.objects.get(title=title)
@@ -200,6 +215,7 @@ def addSaved(request, title):
 
     return HttpResponseRedirect(reverse("video", args=(title,)))
 
+
 def saved(request):
     userNow = request.user
     data = userNow.video_saved.all()
@@ -207,22 +223,24 @@ def saved(request):
         "data": data
     })
 
+
 def addLike(request, title):
-    userNow  = request.user
+    userNow = request.user
     data = Videos_Posted.objects.get(title=title)
     data.video_liked.add(userNow)
     data.likes += 1
     title = data.title
-    data.save(update_fields=["likes"]) 
+    data.save(update_fields=["likes"])
 
     return HttpResponseRedirect(reverse("video", args=(title,)))
 
+
 def removeLike(request, title):
-    userNow  = request.user
+    userNow = request.user
     data = Videos_Posted.objects.get(title=title)
     data.video_liked.remove(userNow)
     data.likes -= 1
     title = data.title
-    data.save(update_fields=["likes"]) 
+    data.save(update_fields=["likes"])
 
     return HttpResponseRedirect(reverse("video", args=(title,)))

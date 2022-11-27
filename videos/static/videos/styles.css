@@ -56,7 +56,12 @@
 
   #thumbnail{
     height: 250px;
-}
+  }
+
+  #display_video {
+    float:left; 
+    margin-right: -400px;
+  }
 
 }
 
@@ -67,6 +72,15 @@
 
   form label {
     font-size: 24px;
+  }
+
+  #video_itself {
+    width: 100% !important;
+  }
+
+  #submitChanges {
+    width: 400px;
+    font-size: 30px;
   }
 
   .column {

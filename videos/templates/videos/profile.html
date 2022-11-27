@@ -13,9 +13,11 @@
             <label for="Description" class="form-label">Description</label>
             <textarea class="form-control" id="Description" rows="3" name="new_description"required>{{ data.profile_description }}</textarea>
         </div>
-        <button type="submit" value="Upload" class="btn btn-success" id="submitUpload">Submit changes</button>
+        <button type="submit" value="Upload" class="btn btn-success" id="submitChanges">Submit changes</button>
     </form>
-
+    <br>
+    <h2>My videos</h2>
+    <br>
     <div>
         <div class="row">
             {% for d in vids %}

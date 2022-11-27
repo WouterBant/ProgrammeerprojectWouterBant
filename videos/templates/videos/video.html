@@ -1,8 +1,8 @@
 {% extends "videos/layout.html" %}
 
 {% block body %}
-    <div style="float:left; margin-right: -400px">
-        <video src="{{ data.video_file.url }}" controls></video>
+    <div id="display_video">
+        <video id="video_itself" src="{{ data.video_file.url }}" controls></video>
     </div>
     <p> {{ data.time_posted }}</p>
     <div>

@@ -37,9 +37,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'subscriptions' %}"><span class="menu-text">Subscriptions</span><i id="menu-icon" class="material-icons "><span class="material-symbols-outlined">
-                    density_small
-                    </span></i></a>
+                <a class="nav-link" href="{% url 'subscriptions' %}"><span class="menu-text">Subscriptions</span><i id="menu-icon" class="material-icons ">density_small</i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'upload' %}"><span class="menu-text">Upload</span><i id="menu-icon" class="material-icons ">add_circle</i></a>
