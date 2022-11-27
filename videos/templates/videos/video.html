@@ -4,6 +4,7 @@
     <div style="float:left; margin-right: -400px">
         <video src="{{ data.video_file.url }}" controls></video>
     </div>
+    <p> {{ data.time_posted }}</p>
     <div>
         <ul class="list-group">
             {% if not allComments %}
@@ -33,22 +34,40 @@
     </div>
     <div>
         <h5>Likes: {{ data.likes }}</h5>
-        <form action="{% url 'addLike' id=data.id %}" method="POST">
-            {% csrf_token %}
-            <button class="btn" id="like-button"><span class="material-symbols-outlined">favorite</span></button>
-        </form>
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <form action="{% url 'removeLike' title=data.title %}" method="POST">
+                    {% csrf_token %}
+                    <button style="color:blue;" class="btn" id="like-button"><span class="material-symbols-outlined">favorite</span></button>
+                </form>    
+            {% else %}
+                <form action="{% url 'addLike' title=data.title %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn" id="like-button"><span class="material-symbols-outlined">favorite</span></button>
+                </form>
+            {% endif %}
+        {% endif %}
     </div>
-    <div>
-        <h5>Video is not saved</h5>
-        <form action="{% url 'save_video' id=data.id %}" method="POST">
-            {% csrf_token %}
-            <button style="color: white;" class="btn" id="save-button"><span class="material-symbols-outlined">add</span></button>
-        </form>
-    </div>
+
     <div>
         <form action="{% url 'go_to_profile' id=data.id %}" method="POST">
             {% csrf_token %}
             <button style="color: white;" class="btn btn-primary" id="save-button">Go to profile of {{ data.creator }}</button>
         </form>
+    </div>
+    <div>
+        {% if user.is_authenticated %}
+            {% if saved %}
+                <form action="{% url 'removeSaved' title=data.title %}" method="POST">
+                    {% csrf_token %}
+                    <button style="color: white;" class="btn btn-primary" id="save-button">Remove from saved</button>
+                </form>
+            {% else %}
+                <form action="{% url 'addSaved' title=data.title %}" method="POST">
+                    {% csrf_token %}
+                    <button style="color: white;" class="btn btn-primary" id="save-button">Save video</button>
+                </form>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}

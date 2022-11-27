@@ -20,7 +20,8 @@ class Videos_Posted(models.Model):
     category_video = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category_video", default=None)
     active = models.BooleanField(default=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="creator")
-    # video_saved = models.ManyToManyField(User, related_name="video_saved")
+    video_saved = models.ManyToManyField(User, related_name="video_saved", blank=True)
+    video_liked = models.ManyToManyField(User, related_name="video_liked", blank=True)
     time_posted = models.TimeField(auto_now=True)
     likes = models.IntegerField(default=0)
 
@@ -39,6 +40,7 @@ class Profile(models.Model):
     person = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person")
     profile_name = models.CharField(max_length=20, default="No profile name")
     profile_description = models.CharField(max_length=500, default="No description")
+    videos = models.ManyToManyField(Videos_Posted, related_name="videos", blank=True)
 
     def __str__(self):
         return f"{self.profile_name} has description {self.profile_description}"

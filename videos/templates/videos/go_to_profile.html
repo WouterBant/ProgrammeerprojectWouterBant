@@ -1,7 +1,25 @@
 {% extends "videos/layout.html" %}
 
 {% block body %}
-    <h2>Profile</h2>
+    <h2>{{ data.profile_name }}</h2>
+    <p>{{ data.profile_description }}</p>
 
-    <p>{{ data }}</p>
+    <div class="row">
+        {% for d in videos %}
+            <div class="column">
+                <div class="content">
+                    <a href="{% url 'video' title=d.title %}">
+                        <figure>
+                            <img src="{{ d.thumbnail.url }}" class="img-thumbnail" id="thumbnail">
+                            <figcaption>{{ d.title }} -- {{ d.creator }}</figcaption>
+                            <form action="{% url 'delete_video' id=d.id %}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn" id="like-button"><span class="material-symbols-outlined" onclick="return confirm('Are you sure you want to remove this video?')">delete</span></button>
+                            </form>
+                        </figure>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -89,21 +89,22 @@ def profile(request):
         "vids": vids
     })
 
-def saved(request):
-    return render(request, "videos/saved.html")
-
 def video(request, title):
     if request.method == "GET":
         try:
             data = Videos_Posted.objects.get(title=title)
         except:
             data = None
+        
+        saved=request.user in data.video_saved.all()
+        liked=request.user in data.video_liked.all()
         allComments = Comments.objects.filter(comment_video=data)
         # isOwner = request.user.username == data.owner.username
         return render(request, "videos/video.html", {
             'data': data,
             'allComments': allComments,
-            # 'isOwner': isOwner
+            'saved': saved,
+            'liked': liked
         })
     
 
@@ -137,15 +138,6 @@ def addComment(request, id):
     newComment.save()
     return HttpResponseRedirect(reverse("video", args=(title, )))
 
-def addLike(request, id):
-    userNow  = request.user
-    data = Videos_Posted.objects.get(pk=id)
-    data.likes += 1
-    title = data.title
-    data.save(update_fields=["likes"]) 
-
-    return HttpResponseRedirect(reverse("video", args=(title,)))
-
 def delete_video(request, id):
     Videos_Posted.objects.get(pk=id).delete()
     return HttpResponseRedirect(reverse(index))
@@ -177,14 +169,60 @@ def display_category(request):
         "cats": Category.objects.all()
     })
 
-def save_video(request, id):
-    pass
-
 def go_to_profile(request, id):
-    record = Videos_Posted.objects.filter(id=id)
-    print(record)
-    # print("\n\n\n\n\n\n\n")
-    # Profile.objects.get(person=user)
+    record = Videos_Posted.objects.get(id=id)
+    vids = Videos_Posted.objects.filter(creator=record.creator)
+    print(record.creator)
+    userNow = record.creator
+    data = userNow.person.all().get()
+    print(data)
     return render(request, "videos/go_to_profile.html", {
-        "data": record
+        "data": data,
+        "videos": vids
     })
+
+def delete_from_saved(request, title):
+    data = Videos_Posted.objects.get(title=title)
+    userNow = request.user
+    data.video_saved.remove(userNow)
+    return HttpResponseRedirect(reverse("saved"))
+
+def removeSaved(request, title):
+    data = Videos_Posted.objects.get(title=title)
+    userNow = request.user
+    data.video_saved.remove(userNow)
+    return HttpResponseRedirect(reverse("video", args=(title,)))
+
+def addSaved(request, title):
+    data = Videos_Posted.objects.get(title=title)
+    userNow = request.user
+    data.video_saved.add(userNow)
+
+    return HttpResponseRedirect(reverse("video", args=(title,)))
+
+def saved(request):
+    userNow = request.user
+    data = userNow.video_saved.all()
+    return render(request, "videos/saved.html", {
+        "data": data
+    })
+
+def addLike(request, title):
+    userNow  = request.user
+    data = Videos_Posted.objects.get(title=title)
+    data.video_liked.add(userNow)
+    data.likes += 1
+    title = data.title
+    data.save(update_fields=["likes"]) 
+
+    return HttpResponseRedirect(reverse("video", args=(title,)))
+
+def removeLike(request, title):
+    userNow  = request.user
+    data = Videos_Posted.objects.get(title=title)
+    data.video_liked.remove(userNow)
+    data.likes -= 1
+    title = data.title
+    data.save(update_fields=["likes"]) 
+
+    return HttpResponseRedirect(reverse("video", args=(title,)))

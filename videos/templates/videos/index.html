@@ -1,8 +1,7 @@
 {% extends "videos/layout.html" %}
 
 {% block body %}
-    <h2>Recommendations</h2>
-    <br>
+
     <body>
         <form action="{% url 'display_category' %}" method="POST">
             {% csrf_token %}
