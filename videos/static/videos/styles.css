@@ -185,8 +185,12 @@
   float: right;
 }
 
+figure {
+  background-color: var(--background-col);
+}
+
 figcaption{
-  color: black;
+  color: var(--label-color);
   font-size: medium;
 }
 
@@ -369,6 +373,12 @@ dt {
 
 dt a {
   color: var(--title-color);
+}
+
+#thumbnail {
+  background-color: var(--fig-color);
+  border-radius: 10px;
+  border-color: var(--title-color);
 }
 
 #thumbnail:hover{
