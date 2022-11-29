@@ -59,3 +59,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.profile_name} has description {self.profile_description}"
+
+class Subscribers(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE,
+                                 related_name="subfollower")
+    creator = models.ForeignKey(User, on_delete=models.CASCADE,
+                                related_name="subcreator")
+
+    def __str__(self):
+        return f"{self.follower} follows {self.creator}"

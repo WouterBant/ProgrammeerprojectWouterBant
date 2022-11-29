@@ -70,4 +70,20 @@
             {% endif %}
         {% endif %}
     </div>
+
+    <div>
+        {% if user.is_authenticated and user != data.creator %}
+            {% if subbed %}
+                <form action="{% url 'removeSub' title=data.title %}" method="POST">
+                    {% csrf_token %}
+                    <button style="color: white;" class="btn btn-primary" id="save-button">Unsub</button>
+                </form>
+            {% else %}
+                <form action="{% url 'addSub' title=data.title %}" method="POST">
+                    {% csrf_token %}
+                    <button style="color: white;" class="btn btn-primary" id="save-button">Subscribe</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

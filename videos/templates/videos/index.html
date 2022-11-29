@@ -22,8 +22,12 @@
                             <a href="{% url 'video' title=d.title %}">
                                 <figure>
                                     <img src="{{ d.thumbnail.url }}" class="img-thumbnail" id="thumbnail">
+                                    {% comment %} <video style="width:100%; height:100%" class="img-thumbnail" id="thumbnail" muted playsinline onmouseover="this.play()" onmouseout="this.pause();this.currentTime=0;" poster="{{ d.thumbnail.url }}">
+                                        <source src="{{ d.video_file.url }}" type="video/mp4"></source>
+                                    </video> {% endcomment %}
                                     <figcaption>{{ d.title }} -- {{ d.creator }}</figcaption>
                                 </figure>
+                                
                             </a>
                         </div>
                     </div>

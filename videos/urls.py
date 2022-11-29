@@ -28,6 +28,8 @@ urlpatterns = [
     path("removeLike/<str:title>", views.removeLike, name="removeLike"),
     path("addLike/<str:title>", views.addLike, name="addLike"),
     path("delete_from_saved/<str:title>", views.delete_from_saved, name="delete_from_saved"),
+    path("removeSub/<str:title>", views.removeSub, name="removeSub"),
+    path("addSub/<str:title>", views.addSub, name="addSub"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

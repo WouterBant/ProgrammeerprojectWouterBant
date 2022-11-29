@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Videos_Posted, Category, Comments, Profile
+from .models import User, Videos_Posted, Category, Comments, Profile, Subscribers
 
 
 def index(request):
@@ -104,12 +104,19 @@ def video(request, title):
         saved = request.user in data.video_saved.all()
         liked = request.user in data.video_liked.all()
         allComments = Comments.objects.filter(comment_video=data)
-        # isOwner = request.user.username == data.owner.username
+        creator = data.creator
+        try:
+            data1 = Subscribers.objects.get(follower=request.user, creator=creator)
+        except:
+            data1 = None
+        print(data1)
+        subbed = isinstance(data1, Subscribers)
         return render(request, "videos/video.html", {
             'data': data,
             'allComments': allComments,
             'saved': saved,
-            'liked': liked
+            'liked': liked,
+            'subbed': subbed,
         })
 
 
@@ -244,3 +251,26 @@ def removeLike(request, title):
     data.save(update_fields=["likes"])
 
     return HttpResponseRedirect(reverse("video", args=(title,)))
+
+
+def removeSub(request, title):
+    record = Videos_Posted.objects.get(title=title)
+    creator = record.creator
+    data = Subscribers.objects.get(follower=request.user, creator=creator)
+    data.delete()
+
+    return HttpResponseRedirect(reverse("video", args=(title,)))
+
+
+def addSub(request, title):
+    record = Videos_Posted.objects.get(title=title)
+    creator = record.creator
+
+    newSub = Subscribers(
+        follower = request.user,
+        creator = creator
+    )
+    newSub.save()
+
+    return HttpResponseRedirect(reverse("video", args=(title,)))
+
